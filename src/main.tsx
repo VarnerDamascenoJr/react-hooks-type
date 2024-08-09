@@ -8,7 +8,7 @@ import NotFoundPage from './pages/NotFoundPage.tsx'
 import Profiles from './pages/Profiles.tsx'
 import Profile from './pages/Profile.tsx'
 import FetchUsingUseEffect from './pages/FetchUsingUseEffect.tsx'
-
+import FetchUsingTanStackQuery from './pages/FetchUsingTanStackQuery.tsx'
 const router = createBrowserRouter([
   {
       path:'/',
@@ -28,8 +28,10 @@ const router = createBrowserRouter([
   {
     path:'/fetch-useeffect',
     element: <FetchUsingUseEffect />
+  },{
+    path:'/fetch-tantank-query',
+    element: <FetchUsingTanStackQuery />
   }
-
 ])
 
 
