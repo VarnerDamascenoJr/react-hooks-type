@@ -1,7 +1,8 @@
-import {zod, ZodType} from 'zod';
+import {z, ZodType} from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod'
 
-
-type formData = {
+type FormData = {
   firstName: string;
   lastName: string;
   email: string;
@@ -11,7 +12,7 @@ type formData = {
 }
 const FormValidationModelWithZod = () => {
 
-  const schema: ZodType<formData> = z.object({
+  const schema: ZodType<FormData> = z.object({
     firstName: z.string().min(3).max(30),
     lastName: z.string().min(3).max(30),
     email: z.string().email(),
@@ -23,20 +24,37 @@ const FormValidationModelWithZod = () => {
     path: ['confirmPassword'],
   })
 
+  const { register, handleSubmit, formState:{errors}} = useForm<FormData>({resolver: zodResolver(schema)})
+const handleSubmitData =(data: FormData)=> {
+  console.log('Its worked', data)
+}
+
+const errosStyle ={
+  fontSize: '12px',
+  color: 'red',
+}
   return(
-  <form style={{display:'flex', flexDirection:'column',alignContent: 'center', justifyContent: 'center', gap:'20px'}}>
+  <form style={{display:'flex', flexDirection:'column',alignContent: 'center', justifyContent: 'center', gap:'20px'}}
+  onSubmit={handleSubmit(handleSubmitData)}
+  >
       <label>First Name:</label>
-      <input type='text'/>
+      <input type='text' {...register('firstName')}/>
+      {errors.firstName && <span style={errosStyle} >{errors.firstName.message}</span>}
       <label>Last Name:</label>
-      <input type='text'/>
+      <input type='text' {...register('lastName')}/>
+      {errors.lastName && <span style={errosStyle} >{errors.lastName.message}</span>}
       <label>Email:</label>
-      <input type='email'/>
+      <input type='email' {...register('email')}/>
+      {errors.email && <span style={errosStyle} >{errors.email.message}</span>}
       <label>Age:</label>
-      <input type='number'/>
+      <input type='number' {...register('age', {valueAsNumber: true})}/>
+      {errors.age && <span style={errosStyle} >{errors.age.message}</span>}
       <label>Password:</label>
-      <input type='password'/>
+      <input type='password' {...register('password')}/>
+      {errors.password && <span style={errosStyle} >{errors.password.message}</span>}
       <label>Confirm Password:</label>
-      <input type='password'/>
+      <input type='password' {...register('confirmPassword')}/>
+      {errors.confirmPassword && <span style={errosStyle} >{errors.confirmPassword.message}</span>}
       <button type='submit'>Send</button>
   </form>
   )
