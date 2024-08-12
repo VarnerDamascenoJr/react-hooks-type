@@ -7,7 +7,7 @@ import Home from './pages/Home.tsx'
 import NotFoundPage from './pages/NotFoundPage.tsx'
 import Profiles from './pages/Profiles.tsx'
 import Profile from './pages/Profile.tsx'
-
+import FormValidationModelWithZod from './pages/FormValidationModelWithZod.tsx'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path:'/validation',
+    element:<FormValidationModelWithZod />
+  }
 
 ])
 
